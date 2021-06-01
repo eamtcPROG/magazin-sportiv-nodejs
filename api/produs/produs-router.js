@@ -10,10 +10,11 @@ router.get('/',restrict,async (req, res,next) => {
      res.status(500).json({ message: err });
    }); 
    if(foundUser){
-    const produs = await Produs.findOnlyforUser(!req.decoded.id).catch((error) => 
-    {
-        next(error)
-    });
+        const produs = await Produs.find(
+            { user_id: req.decoded.id }
+        ).catch((error) => {
+            next(error)
+        });
         
         res.json( produs );
     }
