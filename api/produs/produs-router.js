@@ -4,15 +4,13 @@ const  Produs  = require('./produs-model');
 const {restrict} = require('../middlewares/middlewares');
 const router = express.Router();
 
-router.get('/',restrict,async (req, res,next) => {
+router.get('/market',restrict,async (req, res,next) => {
     
     const foundUser = await User.findById( req.decoded.id ).catch((err) => {
      res.status(500).json({ message: err });
    }); 
    if(foundUser){
-        const produs = await Produs.find(
-            { user_id: req.decoded.id }
-        ).catch((error) => {
+        const produs = await Produs.findExeptUser(req.decoded.id ).catch((error) => {
             next(error)
         });
         
@@ -23,7 +21,26 @@ router.get('/',restrict,async (req, res,next) => {
     }
 
  });
+ router.get('/',restrict,async (req, res,next) => {
+    
+  const foundUser = await User.findById( req.decoded.id ).catch((err) => {
+   res.status(500).json({ message: err });
+ }); 
+ if(foundUser){
+      const produs = await Produs.find(          
+      ).catch((error) => {
+          next(error)
+      });
+      
+        
+      res.json( produs );
 
+  }
+  else{
+      return res.status(404).json({ message: 'Not found' });
+  }
+
+});
  router.get('/onlyUser',restrict,async (req, res,next) => {
     
   const foundUser = await User.findById( req.decoded.id ).catch((err) => {

@@ -29,6 +29,9 @@ const Produs = mongoose.model('Produs', produsSchema);
 const find = () => {
     return Produs.find().exec();
   };
+  const findExeptUser = (userID) => {
+    return Produs.find({user_id:{ $nin: userID}}).exec();
+  };
   const findOnlyforUser = (userID) => {
     return Produs.find({user_id:userID}).exec();
   };
@@ -52,5 +55,6 @@ const find = () => {
     findById,
     remove,
     update,
-    findOnlyforUser
+    findOnlyforUser,
+    findExeptUser
   };
