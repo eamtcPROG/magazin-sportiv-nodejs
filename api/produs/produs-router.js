@@ -108,28 +108,5 @@ router.get('/market',restrict,async (req, res,next) => {
         next(error);
       });
   });
- /*  router.put('/:idP/cumpara', async (req, res,next) => {
-    const foundProdus = await Produs.findById(req.params.idP);
-      if (!foundProdus) {
-        return res.status(404).json({ message: 'Not found' });
-      }
-      
-      console.log(foundProdus);
-    
-    const userId = req.decoded.id;
-    if (!userId) {
-      return res.status(404).json({ message: 'Not found id' });
-    }
-    console.log(req.decoded.id);
-    
-    const changedProdus = {_id:foundProdus._id, title:foundProdus.title, text:foundProdus.text,
-       user_id: userId ,price:foundProdus.price,isBought:foundProdus.isBought}
-    Produs.update(req.params.id, changedProdus)
-      .then((updatedProdus) => {
-        res.status(200).json({ updatedProdus });
-      })
-      .catch((error) => {
-        next(error);
-      });
-  }); */
+
   module.exports = router;
