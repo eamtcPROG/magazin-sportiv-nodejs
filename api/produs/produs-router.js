@@ -21,26 +21,16 @@ router.get('/market',restrict,async (req, res,next) => {
     }
 
  });
- router.get('/',restrict,async (req, res,next) => {
+ router.get('/',async (req, res,next) => {
     
-  const foundUser = await User.findById( req.decoded.id ).catch((err) => {
-   res.status(500).json({ message: err });
- }); 
- if(foundUser){
       const produs = await Produs.find(          
       ).catch((error) => {
           next(error)
       });
-      
-        
+          
       res.json( produs );
 
-  }
-  else{
-      return res.status(404).json({ message: 'Not found' });
-  }
-
-});
+  });
  router.get('/onlyUser',restrict,async (req, res,next) => {
     
   const foundUser = await User.findById( req.decoded.id ).catch((err) => {
